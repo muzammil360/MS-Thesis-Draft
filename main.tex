@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{setspace}
+\usepackage{url}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{comment}
+ 
+\title{Thesis Draft}
+\author{Muzammil Bashir }
+
+
+\begin{document}
+\input{front_page.tex}
+
+%\maketitle
+\doublespacing
+
+\tableofcontents
+\newpage
+\listoffigures
+\newpage
+\listoftables
+\newpage
+\lstlistoflistings
+\newpage
+
+\input{abstract.tex}
+\input{acknowledgements.tex}
+
+\input{introduction.tex}
+\input{literature-review.tex}
+\input{methodology.tex}
+\input{experimental-eval.tex}
+\input{conclusion.tex}
+
+
+% Add bibliography
+\newpage
+\singlespacing
+\bibliographystyle{ieeetr}
+\bibliography{ref} 
+
+
+\end{document}

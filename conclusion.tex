@@ -1,0 +1,11 @@
+\section{Conclusion}
+
+\subsection{Summary}
+In this work, we attempted to develop a railroad trespassing detection system. Although initially envisioned for railroad security, the proposed approach has potential applications in video surveillance domains characterized by sparsity in activity. The main contribution is the proposal of a flexible pipeline that can trade off speed and accuracy. The system by design consists of two stages where first stage is responsible for efficiently removing the background frames from the activity frames. Second stage is responsible for differentiating between human trespassing activity and any other unknown activity. We note that our proposed pipeline is composed of off-the-shelf components and then therefore be used with other algorithms relevant to stage 1 and stage 2. We demonstrate the effectiveness of our approach on a public domain surveillance dataset. 
+
+\subsection{Future work}
+There are many interesting directions in which this work can be further advanced. One key direction is to build a trespassing prediction system that uses output of this detection system. Another direction is towards improving the accuracy of detection system. We note that the current performance is limited by the performance of stage 2. Currently stage 2 doesn't use any temporal information at all i.e. each frame is treated independently and is not conditioned on previous frames (history). We believe that utilizing the temporal information can significantly improve the performance specially for challenging cases (discusses in section \ref{sec:challenges}). 
+
+Furthermore, an approach towards reducing the processing time could be to use the output of stage 1 (foreground mask) to reduce the 
+
+\newpage
