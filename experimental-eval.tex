@@ -1,5 +1,5 @@
-\section{Experimental Evaluation}
-In order to validate our approach, we carry out an extensive and in depth experimental evaluation. As discussed in section \ref{sec:goal}, we study the time-accuracy trade-off. We also do stage-wise analysis where each stage is evaluated independently of others. This helps us understand which stage is acting as bottleneck in terms of performance. Additionally, we also do a noise based analysis to understand the robustness of system to noise. Figure \ref{fig:experimental-methdology} illustrates our experimental evaluation approach graphically. 
+\section{Experimental evaluation}
+In order to validate our approach, we carry out an extensive and in depth experimental evaluation. As discussed in section \ref{sec:goal}, we study the time-accuracy trade-off. We also do stage-wise analysis where each stage is evaluated independently of other. This helps us understand which stage is acting as bottleneck in terms of performance. Additionally, we also do a noise based analysis to understand the robustness of system to noise. Figure \ref{fig:experimental-methdology} illustrates our experimental evaluation approach graphically. 
 
 \begin{figure}[ht]
     \centering
@@ -54,9 +54,9 @@ where $nBG=$ no. of background blocks per activity block. Figure \ref{fig:synthe
 
 
 \begin{table}
-\label{table:activity-ratio}
-\caption{Relationship of nBG and AR} \vspace{5pt}
 \centering
+\caption{Relationship of nBG and AR} \vspace{5pt}
+\label{table:activity-ratio}
 \begin{tabular}{@{}| l | l | l | @{}} \hline
 nBG & nAB:nBG & AR   \\ \hline \hline
 1   & 1:1     & 0.5  \\
@@ -72,8 +72,8 @@ In order to add noise, we first select $p\%$ of frames from each background bloc
 
 \begin{table}
 \centering
-\label{table:noise-params}
 \caption{Noise parameters}  \vspace{5pt}
+\label{table:noise-params}
 \begin{tabular}{|l|l|}
 \hline
 parameter & description                              \\ \hline \hline
@@ -96,7 +96,7 @@ $TP=$ correctly predicted to be positive class\\
 $FP=$ incorrectly predicted to be positive class\\
 $FN=$ incorrectly predicted to be negative class \\
 
-Precision indicates out of samples predicted to be positive, how much is correct! Recall on the other hand indicates how much of the positive samples have been correctly identified. 
+Precision indicates out of samples predicted to be positive, how much is correct. Recall on the other hand indicates how much of the positive samples have been correctly identified. 
 
 \subsubsection{AUC}
 AUC stands for Area Under the Curve. It is the area under the TPR-FPR curve (which is also known as Receiver Operating Characteristics (ROC) curve). TPR (True Positive Rate) and FPR (False Positive Rate) are defined as 
@@ -133,8 +133,8 @@ Figure \ref{fig:time-acc-tradeoff-ar-mog} and \ref{fig:time-acc-tradeoff-ar-gsoc
 
 \begin{table}
 \centering
-\label{table:fig1_data_params}
 \caption{Synthetic data parameters for MoG vs GSoC time-accuracy trade off} \vspace{5pt}
+\label{table:fig1_data_params}
 \begin{tabular}{|l|l|}
 \hline
 parameter             & value  \\ \hline \hline
@@ -161,7 +161,7 @@ $\sigma$ & 0.20\% \\ \hline
 
 
 \subsection{Stage based }
-In this part, we analyse both stage 1 and 2 independently. For stage 1, we are doing binary classification between activity and background frames. We shall vary our threshold (percentage of foreground pixels) and observe f1score. AUC shall also be computed. We will evaluate both MoG and GSoC. Figure \ref{fig:f1-analysis-mog} and \ref{fig:f1-analysis-gsoc} show the results for MoG and GSoC respectively. Table \ref{table:auc-time-analysis-s1} shows the AUC for both algorithms. It is clear that MoG outperform GSoC in both f1score and AUC. Further, MoG is significantly faster as compared to GSoC.   
+In this part, we analyse both stage 1 and 2 independently. For stage 1, we are doing binary classification between activity and background frames. We shall vary our threshold (percentage of foreground pixels) and observe f1score. AUC shall also be computed. We will evaluate both MoG and GSoC. Figure \ref{fig:f1-analysis-mog} and \ref{fig:f1-analysis-gsoc} show the results for MoG and GSoC respectively. Table \ref{table:auc-time-analysis-s1} shows the AUC for both algorithms. It is clear that MoG outperforms GSoC in both f1score and AUC. Further, MoG is significantly faster as compared to GSoC.   
 
 \begin{figure}
     \centering
@@ -179,8 +179,8 @@ In this part, we analyse both stage 1 and 2 independently. For stage 1, we are d
 
 \begin{table}
 \centering
-\label{table:auc-time-analysis-s1}
 \caption{Stage 1 AUC and time analysis} \vspace{5pt}
+\label{table:auc-time-analysis-s1}
 \begin{tabular}{|l|l|c|}
 \hline
 algorithm   & AUC     & mean processing \\
@@ -249,8 +249,8 @@ Figure \ref{fig:noise-analysis-mog-mu} shows MoG's (stage 1) f1score graph with 
 
 \begin{table}
 \centering
-\label{table:noise-analysis-auc-mog-p}
 \caption{Noise analysis - AUC for varying $p$} \vspace{5pt}
+\label{table:noise-analysis-auc-mog-p}
 \begin{tabular}{|l|l|}
 \hline
 $p$         & AUC  \\ \hline \hline
@@ -263,8 +263,8 @@ $p$         & AUC  \\ \hline \hline
 
 \begin{table}
 \centering
-\label{table:noise-analysis-auc-mog-mu}
 \caption{Noise analysis - AUC for varying $\mu$} \vspace{5pt}
+\label{table:noise-analysis-auc-mog-mu}
 \begin{tabular}{|l|l|}
 \hline
 $\mu$         & AUC  \\ \hline \hline
