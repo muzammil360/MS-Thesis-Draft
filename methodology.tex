@@ -17,14 +17,9 @@ We define the trespassing activity as the presence of at  least one person in th
 
 
 \subsection{Proposed pipeline} 
-In order to tackle this problem, we propose a two-stage trespassing detection model. Figure \ref{fig:trespassing-detection-framework} shows the model framework. In the first stage, we decide whether a particular frame $f_i$ has activity or not. If it turns out that $f_i$ has no activity, then it is classified as background frame. This frame shall no longer be processed by second stage. On the other hand, if $f_i$ shows activity, then second stage shall investigate whether its human trespassing activity or not. Figure \ref{fig:trespassing-detection-pipeline} shows the block diagram of our system implementing trespassing detection framework. Stage 1 of our pipeline corresponds to level 1 of framework. Likewise, stage 2 of pipeline corresponds to level 2 of framework. Input to our pipeline is a video and each frame is processed one by one. Each frame is first processed through stage 1 to determine if it shows activity. Only the frames classified as showing activity are further processed through stage 2. Output of the system is a time series as discussed in section \ref{sec:prob-formulation}  
+In order to tackle this problem, we propose a two-stage trespassing detection model. This model is in accordance with our approach in section \ref{sec:approach}. Figure \ref{fig:trespassing-detection-pipeline} shows the block diagram of our system implementing trespassing detection framework. Stage 1 of our pipeline corresponds to step 1 of approach. Likewise, stage 2 of pipeline corresponds to step 2 of approach. Input to our pipeline is a video and each frame is processed one by one. Each frame is first processed through stage 1 to determine if it shows activity. Only the frames classified as showing activity are further processed through stage 2. Output of the system is a time series as discussed in section \ref{sec:prob-formulation}  
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{images/trespassing-detection-framework.PNG}
-    \caption{Trespassing detection framework}
-    \label{fig:trespassing-detection-framework}
-\end{figure}
+
 
 \begin{figure}
     \centering

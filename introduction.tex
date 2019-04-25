@@ -79,8 +79,18 @@ Most of the surveillance video is expected to be sparse in terms of trespassing 
 
 
 \subsection{Approach}
-\subsection{Contribution}
-\subsection{Outline}
+\label{sec:approach}
+In order to fulfill our goals, we design a two step approach. Figure \ref{fig:trespassing-detection-framework} shows our approach.  In the first step, we decide whether a particular frame has activity or not. If it turns out that given frame has no activity, then it is classified as background frame. No further action needs to be taken for this frame. On the other hand, if it shows activity, then next step will be to investigate whether its human trespassing activity or not.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{images/trespassing-detection-framework.PNG}
+    \caption{Our approach}
+    \label{fig:trespassing-detection-framework}
+\end{figure}
+
+% \subsection{Contribution}
+% \subsection{Outline}
 
 
 \newpage
