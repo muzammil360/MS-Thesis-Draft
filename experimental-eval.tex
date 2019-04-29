@@ -1,5 +1,5 @@
 \section{Experimental evaluation}
-In order to validate our approach, we carry out an extensive and in depth experimental evaluation. As discussed in section \ref{sec:goal}, we study the time-accuracy trade-off. We also do stage-wise analysis where each stage is evaluated independently of other. This helps us understand which stage is acting as bottleneck in terms of performance. Additionally, we also do a noise based analysis to understand the robustness of system to noise. Figure \ref{fig:experimental-methdology} illustrates our experimental evaluation approach graphically. 
+In order to validate our approach, we carry out an extensive and in depth experimental evaluation. As discussed in Section \ref{sec:goal}, we study the time-accuracy trade-off. We also do stage-wise analysis where each stage is evaluated independently of other. This helps us understand which stage is acting as bottleneck in terms of performance. Additionally, we also do a noise based analysis to understand the robustness of system to noise. Figure \ref{fig:experimental-methdology} illustrates our experimental evaluation approach graphically. 
 
 \begin{figure}[ht]
     \centering
@@ -19,7 +19,7 @@ The dataset we used for experimental evaluation is VIRAT 2.0 \cite{virat20}. It 
 \end{figure}
 
 
-\subsubsection{Synthetic dataset}
+\subsubsection{Synthetic dataset generator}
 \label{sec:synthetic-dataset}
 Instead of directly using the VIRAT 2.0 dataset, we synthesize more data from it. The reason why we need to do that is original dataset targets activity classification and is therefore enriched with human activity. We on the other hand need sparse activity data. Therefore, we use original VIRAT 2.0 dataset to generate new data that has controlled amount of activity to background ratio. Figure \ref{fig:synthetic-dataset-generator} helps understand our synthetic dataset generator.  
 
@@ -50,12 +50,12 @@ Step 1 is simple. We manually scroll through a video and identify a frame with n
 
 An important concept associated with this procedure is \textit{Activity Ratio}. It is defined as 
 $$ \text{Activity Ratio} = \text{AR} = \frac{1}{1+nBG} $$
-where $nBG=$ no. of background blocks per activity block. Figure \ref{fig:synthetic-video} has $nBG=1$. Table \ref{table:activity-ratio} explains the relationship between $nBG$ and AR. 
+where $nBG=$ number of background blocks per activity block. Figure \ref{fig:synthetic-video} has $nBG=1$. Table \ref{table:activity-ratio} explains the relationship between $nBG$ and AR. 
 
 
 \begin{table}
 \centering
-\caption{Relationship of nBG and AR} \vspace{5pt}
+\caption{Relationship of number of background blocks and activity ratio} \vspace{5pt}
 \label{table:activity-ratio}
 \begin{tabular}{@{}| l | l | l | @{}} \hline
 nBG & nAB:nBG & AR   \\ \hline \hline
@@ -78,15 +78,15 @@ In order to add noise, we first select $p\%$ of frames from each background bloc
 \hline
 parameter & description                              \\ \hline \hline
 $p$         & percentage of noisy frames in background block  \\ 
-$\mu$        & average no. of noisy pixels in noisy frame     \\ 
-$\sigma$     & standard deviation of no. of noisy pixels     \\ \hline
+$\mu$        & average number of noisy pixels in noisy frame     \\ 
+$\sigma$     & standard deviation of number of noisy pixels     \\ \hline
 \end{tabular}
 \end{table}
 
 \subsection{Evaluation metrics}
-We use two performance metrics to measure the performance: f1score and AUC. F1score is selected as a metric to study performance w-r-t detector/classifier threshold. It is useful in the sense that it helps in picking the appropriate threshold for the classifier. AUC on the other hand is independent of a particular threshold. Further, since we are dealing with unbalanced data (background frames may be much more than activity frames); therefore AUC is a more reliable metric for classifier performance as it is insensitive to class imbalance.  
-\subsubsection{F1score}
-F1score is the harmonic mean of precision and recall. 
+We use two performance metrics to measure the performance: f1 score and AUC. F1 score is selected as a metric to study performance w-r-t detector/classifier threshold. It is useful in the sense that it helps in picking the appropriate threshold for the classifier. AUC on the other hand is independent of a particular threshold. Further, since we are dealing with unbalanced data (there may be much more background frames than activity frames); therefore AUC is a more reliable metric for classifier performance as it is insensitive to class imbalance.  
+\subsubsection{F1 score}
+F1 score is the harmonic mean of precision and recall. 
 $$\frac{1}{f_1} = \frac{0.5}{precision} +  \frac{0.5}{recall} $$
 $$precision = \frac{\text{True positive}}{\text{positive predictions}} =  \frac{TP}{TP + FP}$$
 $$recall = \frac{\text{True positive}}{\text{actual positives}} =  \frac{TP}{TP + FN}$$
@@ -96,15 +96,15 @@ $TP=$ correctly predicted to be positive class\\
 $FP=$ incorrectly predicted to be positive class\\
 $FN=$ incorrectly predicted to be negative class \\
 
-Precision indicates out of samples predicted to be positive, how much is correct. Recall on the other hand indicates how much of the positive samples have been correctly identified. 
+Precision indicates out of the samples predicted to be positive, how many of them are correct. Recall on the other hand indicates how many of the positive samples have been correctly identified. 
 
-\subsubsection{AUC}
+\subsubsection{Area Under the Curve (AUC)}
 AUC stands for Area Under the Curve. It is the area under the TPR-FPR curve (which is also known as Receiver Operating Characteristics (ROC) curve). TPR (True Positive Rate) and FPR (False Positive Rate) are defined as 
 
 $$ TPR = \frac{TP}{TP + FN} = recall$$
 $$ FPR = \frac{FP}{FP + TN}$$
 
-A particular value of threshold gives a particular $(FPR,TPR)$ point. This point can be plotted on a 2D plot with TPR on y-axis and FPR on x-axis. Figure \ref{fig:auc} shows a sample ROC curve. As the threshold goes from 0 to 1, the curve moves from top-right to bottom-left. A perfect classifier will have an AUC of 1.0 and a classifier that does no better than random guessing will have an AUC of 0.5. 
+A particular value of threshold gives a particular $(FPR,TPR)$ point. This point can be plotted on a 2D plot with TPR on the y-axis and FPR on the x-axis. Figure \ref{fig:auc} shows a sample ROC curve. As the threshold goes from 0 to 1, the curve moves from top-right to bottom-left. A perfect classifier will have an AUC of 1.0 and a classifier that does no better than random guessing will have an AUC of 0.5. 
 
 
 \begin{figure}
@@ -115,10 +115,10 @@ A particular value of threshold gives a particular $(FPR,TPR)$ point. This point
 \end{figure}
 
 
-\subsection{Time-accuracy trade-off}
-In time-accuracy trade off we study how the data can be processed in less time by compromising on accuracy. We vary certain control parameters (stage 1 threshold in this case) and observe time to process the data along with the performance of complete pipeline. Figure \ref{fig:time-acc-tradeoff-mog_vs_gsoc} shows a comparison of MoG and GSoC for the trade off. The trade off curve has f1score on y-axis and normalized processing time on x-axis. Following is the definition of normalized processing time. 
+\subsection{Time-accuracy trade-off experiment}
+In time-accuracy trade off experiment, we study how the data can be processed in less time by compromising on accuracy. We vary certain control parameters (stage 1 threshold in this case) and observe the time it takes to process the data along with the performance of the complete pipeline. Figure \ref{fig:time-acc-tradeoff-mog_vs_gsoc} shows a comparison of MoG and GSoC for the trade off. The trade off curve depicts f1 score on y-axis and normalized processing time on the x-axis. Next we give the definition of normalized processing time. 
 $$\text{normalized time} = \frac{\text{total time to process video data}}{\text{length of video data}}$$
-It is clear that as the f1score goes up, the normalized processing time also goes up, indicating the trade off. The figure also shows that MoG significantly outperforms GSoC. For a given f1score, MoG takes less time than GSoC. Alternatively, for a given processing time, MoG shows better performance than GSoC. 
+It is clear that as the f1 score goes up, the normalized processing time also goes up, indicating the trade off. The figure also shows that MoG significantly outperforms GSoC. For a given f1 score, MoG takes less time than GSoC. Alternatively, for a given processing time, MoG shows better performance than GSoC. 
 
 Another interesting fact to note is that it would take around 2.6 hours of normalized processing time to process same data by stage 2 (Faster-RCNN) only. i.e. if stage 1 does not perform filtering. On the other hand, it takes around 1 hour to process the same data using our proposed pipeline.  This shows a 2.6 times improvement in processing time for dataset having AR=0.25. The synthetic dataset parameters using in corresponding dataset are shown in table \ref{table:fig1_data_params}
 
@@ -133,7 +133,7 @@ Figure \ref{fig:time-acc-tradeoff-ar-mog} and \ref{fig:time-acc-tradeoff-ar-gsoc
 
 \begin{table}
 \centering
-\caption{Synthetic data parameters for MoG vs GSoC time-accuracy trade off} \vspace{5pt}
+\caption{Synthetic data parameters for time-accuracy trade off} \vspace{5pt}
 \label{table:fig1_data_params}
 \begin{tabular}{|l|l|}
 \hline
@@ -160,8 +160,8 @@ $\sigma$ & 0.20\% \\ \hline
 \end{figure}
 
 
-\subsection{Stage based }
-In this part, we analyse both stage 1 and 2 independently. For stage 1, we are doing binary classification between activity and background frames. We shall vary our threshold (percentage of foreground pixels) and observe f1score. AUC shall also be computed. We will evaluate both MoG and GSoC. Figure \ref{fig:f1-analysis-mog} and \ref{fig:f1-analysis-gsoc} show the results for MoG and GSoC respectively. Table \ref{table:auc-time-analysis-s1} shows the AUC for both algorithms. It is clear that MoG outperforms GSoC in both f1score and AUC. Further, MoG is significantly faster as compared to GSoC.   
+\subsection{Stage based experiments}
+In this part, we analyse both stage 1 and 2 independently. For stage 1, we are doing binary classification between activity and background frames. We shall vary our threshold (percentage of foreground pixels) and observe f1 score. AUC shall also be computed. We will evaluate both MoG and GSoC. Figure \ref{fig:f1-analysis-mog} and \ref{fig:f1-analysis-gsoc} show the results for MoG and GSoC respectively. Table \ref{table:auc-time-analysis-s1} shows the AUC for both algorithms. It is clear that MoG outperforms GSoC in both f1 score and AUC. Further, MoG is significantly faster as compared to GSoC.   
 
 \begin{figure}
     \centering
@@ -215,7 +215,7 @@ $\hat{b}_i =i^{th} \text{ prediction bounding box}$ \\
 $b_j =j^{th} \text{ ground truth bounding box}$ \\
 $\hat{p}_i = i^{th} \text{ prediction probability}$
 
-Based on that, figure \ref{fig:f1-analysis-s2} shows the f1score w-r-t prediction threshold. We achieve an AUC of 0.81 for this stage and we notice that on average it takes 0.5 seconds for the stage 2 (Faster-RCNN) to process one frame at $1080 \times 960$ resolution. 
+Based on that, Figure \ref{fig:f1-analysis-s2} shows the f1 score w-r-t prediction threshold. We achieve an AUC of 0.81 for this stage and we notice that on average it takes 0.5 seconds for the stage 2 (Faster-RCNN) to process one frame at $1080 \times 960$ resolution. 
 
 \begin{figure}
     \centering
@@ -224,14 +224,14 @@ Based on that, figure \ref{fig:f1-analysis-s2} shows the f1score w-r-t predictio
     \label{fig:f1-analysis-s2}
 \end{figure}
 
-\subsection{Noise analysis }
-Third and final part of our experimental evaluation is noise analysis. In this part, we evaluate the robustness of stage 1 against noise. As discussed in section \ref{sec:synthetic-dataset}, we only add noise to background frames. Noise analysis for stage 2 is not our goal and shall not be discussed here. 
+\subsection{Noise analysis experiments}
+Third and final part of our experimental evaluation is noise analysis. In this part, we evaluate the robustness of stage 1 against noise. As discussed in Section \ref{sec:synthetic-dataset}, we only add noise to background frames. Noise analysis for stage 2 is not our goal and shall not be discussed here. 
 
 In terms of noise, we have 3 parameters: $p, \mu, \text{ and } \sigma$. Description of these parameters has been discussed in table \ref{table:noise-params}. To study the influence of one parameter, we vary it while keeping the others constant.   
 
-Figure \ref{fig:noise-analysis-mog-p} shows MoG's (stage 1) f1score graph with variation in $p$. We use $AR=0.5$, $\mu=0.5\%$ and $\sigma=0.2\%$ for this experiment. It is clear that increasing the $p$ forces the graph to go down. Thus more noise in terms of $p$ will directly affect the performance of stage 1. This result is also verified by reduced in AUC as shown in table \ref{table:noise-analysis-auc-mog-p}.
+Figure \ref{fig:noise-analysis-mog-p} shows MoG's (stage 1) f1 score graph with variation in $p$. We use $AR=0.5$, $\mu=0.5\%$ and $\sigma=0.2\%$ for this experiment. It is clear that increasing $p$ forces the graph to go down. Thus more noise in terms of $p$ directly affects the performance of stage 1. This result is also verified by reduced AUC as shown in Table \ref{table:noise-analysis-auc-mog-p}.
 
-Figure \ref{fig:noise-analysis-mog-mu} shows MoG's (stage 1) f1score graph with variation in $\mu$. We use $AR=0.5$, $p=2\%$ and $\sigma=0.2\%$ for this experiment. For variation in $\mu$, the f1score graph again seems to shift downwards for increase in $\mu$. However, the difference is less visible in this case. This result is again verified by reduction in AUC as shown in table \ref{table:noise-analysis-auc-mog-mu}.  
+Figure \ref{fig:noise-analysis-mog-mu} shows MoG's (stage 1) f1 score graph with variation in $\mu$. We use $AR=0.5$, $p=2\%$ and $\sigma=0.2\%$ for this experiment. For variation in $\mu$, the f1 score graph again seems to shift downwards when increasing $\mu$. However, the difference is less visible in this case. This result is again verified by a reduction in AUC as shown in Table \ref{table:noise-analysis-auc-mog-mu}.  
 
 \begin{figure}
     \centering

@@ -1,11 +1,11 @@
 \section{Background and related work}
-As the background knowledge to this work, we present a quick review of Convolution Neural Network (CNN) and transfer learning. Then we discuss relevant literature for object detection followed by quick discussion on background subtraction techniques. 
+As the background knowledge to this work, we review Convolution Neural Networks (CNN) and transfer learning. Then we discuss the relevant literature for object detection followed by a discussion on background subtraction techniques. 
 
 
-\subsection{Convolutional Neural Network (CNN)}
-CNN based architectures are the most widely used models for solving computer vision based tasks such as image classification, object detection and object segmentation. During the last few years, they have proved their effectiveness in solving many image based problems. In a normal feed-forward neural network, input must be vectorized and each input feature is connected to each output feature in each layer. This results in huge number of parameters. Further, due to vectorization, the image loses its spacial structure and features computed by subsequent neural network layers can not be mapped to image coordinates. CNN by design avoids both of these problems. It not only uses far less no. of parameters than traditional feed-forward network but also preserves the 2D grid based structure of image\cite{arkar_thesis}.
+\subsection{Convolutional Neural Networks (CNN)}
+CNN based architectures\cite{lecun2010convolutional} are the most widely used models for solving computer vision based tasks such as image classification, object detection and object segmentation. During the last few years, they have proved their effectiveness in solving many image based problems\cite{lecun2010convolutional}. In a normal feed-forward neural network, input must be vectorized and each input feature is connected to each output feature in each layer. This results in huge number of parameters. Further, due to vectorization, the image loses its spatial structure and features computed by subsequent neural network layers cannot be mapped to image coordinates. CNN by design avoids both of these problems. It not only uses far less number of parameters than traditional feed-forward networks but it also preserves the 2D grid based structure of images\cite{arkar_thesis}.
 
-Due to fast pace research in this domain, many new architectures have been proposed. However, convolution layer, pooling layer and fully connected layer still are the most widely used components of any CNN based architecture. Figure \ref{fig:lenet-5} shows architecture of one of the earliest CNN network which employed all three above mentioned basic components. 
+Due to the fast pace research in this domain, many new architectures have been proposed. However, the convolution layer, pooling layer and fully connected layer still are the most widely used components of any CNN based architecture. Figure \ref{fig:lenet-5} shows the architecture of one of the earliest CNN network which employed all three of above mentioned basic components. 
 
 \begin{figure}
     \centering
@@ -17,13 +17,13 @@ digits. Image taken from \cite{lecun1998gradient}.}
 
 
 \subsubsection{Convolution layer}
-As the name suggests, convolution layer applies the operation of convolution. This operation should not be confused with convolution in other domains such as signal processing. Unlike fully connected layer (discussed in sec. \ref{sec:fully_connected_layer}), this operation can be applied to any arbitrary sized $m \times n$ matrix. Being a binary operator it accepts two parameters: input matrix $I$ and kernel $K$. The operation can be defined mathematically as:
+As the name suggests, the convolution layer applies the operation of convolution. This operation should not be confused with convolution in other domains such as signal processing. Unlike the fully connected layer (discussed in sec. \ref{sec:fully_connected_layer}), this operation can be applied to any arbitrary sized $m \times n$ matrix. Being a binary operator it accepts two parameters: input matrix $I$ and kernel $K$. The operation can be defined mathematically as:
 
 $$ M(i,j)=(I*K)(i,j)=\sum_m\sum_n I(m,n)K(i-m,j-n)$$
 
-where $I$ is a 2D matrix (a grayscale image) of size $m \times n$ and $K$ is the kernel\cite{goodfellow2016deep}. $(i,j)$ represents the location in output $M$. In computer vision literature, $M$ is also known as feature map. Generally, the size of kernel $K$ is much smaller (usually $3\times 3$) than $I$.
+where $I$ is a 2D matrix (a grayscale image) of size $m \times n$ and $K$ is the kernel\cite{goodfellow2016deep}. $(i,j)$ represents the location in output $M$. In the computer vision literature, $M$ is also known as feature map. Generally, the size of the kernel $K$ is much smaller (usually $3\times 3$) than $I$.
 
-Although the definition looks scary, the convolution operation in practice is quite simple. $M(i,j)$ is simply the sum of element-wise product of sub-matrix of $I$ and $K$. The sub-matrix of $I$ has center at $(i,j)$ and size equal to $K$. Figure \ref{fig:convolution-op} explains the concept in graphical manner for the location $(2,2)$.
+Although the definition looks complex, the convolution operation in practice is quite simple. $M(i,j)$ is simply the sum of the element-wise product of the sub-matrices of $I$ and $K$. The sub-matrix of $I$ has a center at $(i,j)$ and is of size equal to $K$. Figure \ref{fig:convolution-op} explains the concept in a graphical manner for the location $(2,2)$.
 
 
 \begin{figure}
@@ -33,7 +33,7 @@ Although the definition looks scary, the convolution operation in practice is qu
     \label{fig:convolution-op}
 \end{figure}
 
-Although the above definition defines 2D convolution, it can simply be extended to 3D as well. In practical architectures, 3D convolution is used. Apart from preserving the grid based image structure, another important aspect of CNN is parameter sharing. In fully connected layer, each parameter of weight matrix is used exactly once while computing the output feature map. On the other hand, when convolution is applied to input image, it generates a feature map which shows how strongly a particular feature occurs at a given location. This parameter sharing nature makes CNN based architecture not only practical but also robust.  
+Although the above definition defines the 2D convolution concept, it can simply be extended to 3D as well. In practical architectures, 3D convolution is used. Apart from preserving the grid-based image structure, another important aspect of CNN is parameter sharing. In the fully connected layer, each parameter of the weight matrix is used exactly once while computing the output feature map. On the other hand, when convolution is applied to input image, it generates a feature map which shows how strongly a particular feature occurs at a given location. This parameter sharing nature makes CNN based architecture not only practical but also robust.  
 
 \subsubsection{Activation layer}
 A convolution layer is generally followed by a non-linear activation layer. Convolution being a linear operator can only capture linear transformations, therefore a non-linearity is fundamental to learn complicated relationships between input and output. ReLU (\textbf{Re}ctified \textbf{L}inear \textbf{U}nit) function is one of the most widely used non-linearity. It allows a positive input to pass as it is and blocks the negative input. Figure \ref{fig:relu} shows the response of relu function. Other less commonly used non-linearities include TanH ( \textbf{Tan}gent  \textbf{H}yperbolic) and sigmoid functions.
@@ -47,7 +47,7 @@ A convolution layer is generally followed by a non-linear activation layer. Conv
 
 
 \subsubsection{Pooling layer}
-The main goal of pooling layer is to reduce the data dimensionality. It often follows the activation layer. This layer slides a window on input feature map applying a particular pooling operation. This operation is applied on all the values inside the window and can be min, max or average. Based on the operation, it is either called min pooling, max pooling or average pooling. Apart from the window size, another important detail of pooling layer is stride. This parameter refers to no. of pixels sliding window moves forward each time.
+The main goal of pooling layer is to reduce the data dimensionality. It often follows the activation layer. This layer slides a window on input feature map applying a particular pooling operation. This operation is applied on all the values inside the window and can be min, max or average. Based on the operation, it is either called min pooling, max pooling or average pooling. Apart from the window size, another important detail of pooling layer is stride. This parameter refers to number of pixels sliding window moves forward each time.
 
 Generally stride of the pooling layer is set such that it form non-overlapping windows. For example, applying pooling with $2\times2$ size and a stride of $2$ converts a $14 \times 14$ input feature map to $7 \times 7$. It results into non-overlapping windows as window of size  $2\times2$ moves forward by $2$ pixels every time. On the other hand, if stride is $1$, then every possible window location is visited and windows shall be non-overlapping (if window size is greater than $1$). Figure \ref{fig:pooling} shows an example of max and average pooling.
 
@@ -91,12 +91,12 @@ This technique is particularly useful if dataset is limited. In such a scenario,
 \subsection{Object detection}
 Problem of object detection refers to detecting objects of certain class (such as person, bird, vehicle etc) at a particular location in an image. Traditionally, sliding window based approach had been used where a window of particular size is slided over the image. Image patch (sub-image covered by the sliding window) is fed  to a feature extractor to produce features such as Harr\cite{vioda2001rapid}, SIFT\cite{lowe1999object} or HoG\cite{lin2008pose}. These features are then fed to a classifier such as fully connected neural network or SVM (Support Vector Machine). This classifier predicts the class labels (object category) whereas the location of sliding window is considered to be the location of predicted object.
 
-However in recent years, significant improvement has been made by switching from hand-crafted features (such as Harr, SIFT and HoG) to CNN based features. One of the initial approaches to solve object detection problem using CNN was Overfeat\cite{sermanet2013overfeat}. Other approaches that successively built upon Overfeat include RCNN\cite{ref_rcnn}, Fast-RCNN\cite{ref_fastrcnn} and Faster-RCNN\cite{ren2015faster}. We shall briefly discuss the approach followed by these methods. 
+However in recent years, significant improvement has been made by switching from hand-crafted features (such as Harr, SIFT and HoG) to CNN based features. One of the initial approaches to solve object detection problem using CNN was OverFeat\cite{sermanet2013overfeat}. Other approaches that successively built upon OverFeat include RCNN\cite{ref_rcnn}, Fast-RCNN\cite{ref_fastrcnn} and Faster-RCNN\cite{ren2015faster}. We shall briefly discuss the approach followed by these methods. 
 
-\subsubsection{Overfeat}
-Overfeat\cite{sermanet2013overfeat} was the first paper to propose the use of CNN for object detection on ImageNet\cite{ref_imagenet} dataset. Their approach is simple and straight forward. They slide a window on image and for each window they compute convolutional features. These convolutional features are fed to two separate fully connected sub-networks which predict the label and bounding box for each window respectively. Though this approach significantly improves detection accuracy, it is inherently slow as sliding window generates a lot of patches. Following pseudo code explains their approach.
+\subsubsection{OverFeat}
+OverFeat\cite{sermanet2013overfeat} was the first paper to propose the use of CNN for object detection on ImageNet\cite{ref_imagenet} dataset. Their approach is simple and straight forward. They slide a window on image and for each window they compute convolutional features. These convolutional features are fed to two separate fully connected sub-networks which predict the label and bounding box for each window respectively. Though this approach significantly improves detection accuracy, it is inherently slow as sliding window generates a lot of patches. Following pseudo code explains their approach.
 
-\begin{lstlisting}[language=Python, caption=Overfeat pseudo code]
+\begin{lstlisting}[language=Python, caption=OverFeat pseudo code]
 for window in windows:
     patch = get_patch(image,window)
     features = compute_conv_features(patch)
@@ -117,7 +117,7 @@ for roi in rois:
 \end{lstlisting}
 
 \subsubsection{Fast-RCNN}
-Though RCNN showed a significant speedup and improvement in accuracy as compared to Overfeat, it still applied expensive convolutional operation on each RoI independently. This makes it slow in inference as well as in training. Most of the these RoIs are overlapping and thus computational resources are wasted during re-computation of overlapping RoIs.  Fast-RCNN\cite{ref_fastrcnn} circumvents this issues by sharing convolutional features. Convolutional feature extraction process is taken out of the loop and features are computed for the complete image in single step. Later on, features corresponding to each ROI are extracted from the pre-computed feature map. This technique 
+Though RCNN showed a significant speedup and improvement in accuracy as compared to OverFeat, it still applied expensive convolutional operation on each RoI independently. This makes it slow in inference as well as in training. Most of the these RoIs are overlapping and thus computational resources are wasted during re-computation of overlapping RoIs.  Fast-RCNN\cite{ref_fastrcnn} circumvents this issues by sharing convolutional features. Convolutional feature extraction process is taken out of the loop and features are computed for the complete image in single step. Later on, features corresponding to each ROI are extracted from the pre-computed feature map. This technique 
 makes Fast-RCNN 10x faster than RCNN in training and 150x faster in inference.
 
 One important detail in Fast-RCNN is how we handle RoIs of different sizes. Each RoI has feature size corresponding to its own size. In order to feed the features to fully connected networks (for label and bounding box prediction), these features must be transformed to a particular size.  Fast-RCNN proposes RoI pooling for this purpose. This is similar to Max pooling. However instead of sliding the window on feature map, the whole feature map is converted to a fixed size grid. Max pooling operation is applied on each grid cell and the result has the same size as the size of grid. Following pseudo code explains Fast R-CNN.
